@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <link rel="stylesheet" href="/static/chatstyle.css">
+</head>
+<body>
+    <h2 style="text-align: center;">Chat Room - Welcome, {{ username }}</h2>
+    <ul id="messages"></ul>
+    <form id="messageForm" action="">
+        <input id="messageInput" autocomplete="off" placeholder="Type your message here..." required />
+        <button id="sendMessage" type="submit">Send</button>
+    </form>
+
+    <script> //Can't get this to work as a seperate JS file, so leaving it here. -- Emilie. Maybe its because of the naming of rooms?
+        //This is bad practice, but I can't fix it...fix it in next version?
+        var socket = io.connect();
+        const username = "{{ username }}";
+
+        socket.emit('handle_chatroom_join', {username: username});
+
+        socket.on('new_message', function(data) {
+            const messagesList = document.getElementById('messages');
+            const newMessage = document.createElement('li');
+            newMessage.innerHTML = `<strong>${data.sender}:</strong> ${data.content}`;
+            messagesList.appendChild(newMessage);
+            messagesList.scrollTop = messagesList.scrollHeight;
+        });
+
+        document.getElementById('messageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const messageInput = document.getElementById('messageInput');
+            const messageContent = messageInput.value;
+
+            socket.emit('send_message', {username: username, content: messageContent});
+
+            messageInput.value = '';
+        });
+
+        window.onbeforeunload = function() {
+            socket.emit('leave', {username: username});
+        };
+    </script>
+    <footer>  Designed for CSE 410 by Team BASEP </footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="15">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Chat with {{ chat_partner }}</title>
+    <script src="/static/functions.js"></script>
+</head>
+<body>
+    <h1>Chat with {{ chat_partner }}</h1>
+    <div class = "container">
+        <div class="chat-messages">
+        <h2>Message History</h2>
+        <div class="messages-container">
+          {% for message in messages %}
+          <div class="message">
+              <p><strong>{{ message.sender }}</strong> ({{ message.timestamp }}):</p>
+              <p>{{ message.content }}</p>
+              {% if message.sender == username %}
+              <form action="{{ url_for('delete_message_from_chat', message_id=message.id, username1=username, username2=chat_partner) }}" method="POST">
+                  <button type="submit" class="delete-button">Delete</button>
+              </form>
+              {% endif %}
+          </div>
+          {% endfor %}
+      </div>
+    </div>
+<br>
+            <div class="send-message">
+            <h2>Send a Message to {{ chat_partner }}</h2>
+            <form action="{{ url_for('send_message') }}" method="POST">
+                <input type="hidden" name="recipient" value="{{ chat_partner }}">
+                <textarea name="content" rows="4" placeholder="Type your message here..." required></textarea>
+                <button type="submit" class="button">Send Message</button>
+            </form>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+        <div class="back-to-welcome">
+            <a href="{{ url_for('welcome_page', username=username) }}" class="button">Back to Welcome Page</a>
+        </div>
+        </div>
+    <footer> Designed for CSE 410 by Team BASEP </footer>
+</body>
+</html>

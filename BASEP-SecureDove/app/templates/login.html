@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>SecureDove - Log In</title>
+</head>
+<body>
+    <h1 id="titleCard">Log In to SecureDove</h1>
+    <h2> {{ error }}</h2>
+    <form action="/login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Login">
+    </form>
+ <footer>  Designed for CSE 410 by Team BASEP </footer>
+</body>
+</html>

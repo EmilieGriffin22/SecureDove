@@ -1,0 +1,6 @@
+Flask
+mysql-connector-python
+flask-mail
+urllib3
+cryptography
+flask-socketio

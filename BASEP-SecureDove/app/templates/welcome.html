@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>SecureDove - Welcome</title>
+</head>
+<body>
+    <h1>Welcome to SecureDove, {{ username }}</h1>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('chatroom', username=username) }}" class="button" style="margin-left: 20px;">Go to Chat Room</a>
+    </div>
+
+<div class="container">
+    <div class="send-message">
+        <h2>Send a Message</h2>
+        <form action="{{ url_for('send_message') }}" method="POST">
+            <input type="text" name="recipient" placeholder="Recipient Username" required>
+            <textarea name="content" rows="4" placeholder="Type your message here..." required></textarea>
+            <button type="submit" class="button">Send Message</button>
+        </form>
+    </div>
+
+    <div class="chats">
+        <h2>Your Chats</h2>
+        <ul>
+            {% for user in chat_users %}
+            <li>
+                <a href="{{ url_for('chat_page', username1=username, username2=user[0]) }}">
+                    Chat with {{ user[0] }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <div class="settings">
+            <h2>Settings</h2>
+            <a href="/settings" class="button">Go to Settings</a>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <footer> Designed for CSE 410 by Team BASEP </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="/static/functions.js"></script>
+</body>
+</html>
