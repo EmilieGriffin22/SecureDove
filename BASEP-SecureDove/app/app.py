@@ -25,10 +25,10 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 #Reuse spam email from CSE 312.
-app.config['MAIL_USERNAME'] = "312endingfromtheback@gmail.com"    
+app.config['MAIL_USERNAME'] = ""    
 #Temp                    
 app.config['MAIL_PASSWORD'] = ""                                      
-app.config['MAIL_DEFAULT_SENDER'] = '312endingfromtheback@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = ''
 mail = Mail(app)
 
 #IF PORT ERROR OCCURS, CHANGE THIS VARIABLE
